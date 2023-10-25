@@ -8,6 +8,8 @@ import { ProductController } from './product/product.controller';
 import { ReviewController } from './review/review.controller';
 import { TopPageController } from './top-page/top-page.controller';
 import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { ConfigModule } from '@nestjs/config';
     ReviewModule,
     TopPageModule,
     ProductModule,
+    MongooseModule.forRoot('mongodb://localhost/test'),
+    UsersModule,
   ],
   controllers: [
     AuthController,
