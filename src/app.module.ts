@@ -7,9 +7,10 @@ import { AuthController } from './auth/auth.controller';
 import { ProductController } from './product/product.controller';
 import { ReviewController } from './review/review.controller';
 import { TopPageController } from './top-page/top-page.controller';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
+import { getMongoConfig } from './configs/mongo.config';
 
 @Module({
   imports: [
@@ -18,7 +19,11 @@ import { UsersModule } from './users/users.module';
     ReviewModule,
     TopPageModule,
     ProductModule,
-    MongooseModule.forRoot('mongodb://localhost/test'),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: getMongoConfig,
+    }),
     UsersModule,
   ],
   controllers: [
