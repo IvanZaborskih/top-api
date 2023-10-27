@@ -1,7 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Schema as MSchema } from 'mongoose';
-
-export type ProductDocument = HydratedDocument<Product>;
 
 @Schema()
 export class ProductCharacteristic {
@@ -51,12 +48,7 @@ export class Product {
   @Prop({ type: [String] })
   tags: string[];
 
-  // @Prop({ type: [ProductCharacteristicSchema], _id: false })
-  @Prop({
-    type: MSchema.Types.ObjectId,
-    ref: ProductCharacteristic.name,
-    _id: false,
-  })
+  @Prop({ type: [ProductCharacteristicSchema], _id: false })
   characteristics: ProductCharacteristic[];
 }
 
